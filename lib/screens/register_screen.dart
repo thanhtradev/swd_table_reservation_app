@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     password = value;
                   });
                 }),
-            buildButton(true, "Register", () {
+            buildButton(true, "Register", () async {
               debugPrint("Username: $username");
               debugPrint("Password: $password");
               if (username == "" || password == "") {
@@ -57,11 +57,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   "password": password,
                 }).then((data) {
                   debugPrint("Data: $data");
-                  if (data['status'] == 200) {
+                  if (data['result'] == true) {
                     showAlertDialog(context, "Success", "Register success");
                   } else {
                     showAlertDialog(context, "Error", data['message']);
                   }
+                }).catchError((err) {
+                  debugPrint("Error: $err");
+                  showAlertDialog(context, "Error", err.toString());
                 });
               }
             }),
