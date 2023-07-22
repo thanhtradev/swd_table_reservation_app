@@ -1,4 +1,4 @@
-# table_reservation_app
+# swd_table_reservation_app
 
 A new Flutter project.
 
