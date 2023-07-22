@@ -12,6 +12,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   String username = "";
   String password = "";
+  String phone = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,28 +23,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // The button should be disabled if the username or password is empty
-            TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Username',
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    username = value;
-                  });
-                }),
+            const Image(
+              image: AssetImage('assets/images/logo.png'),
+              width: 180,
+              height: 180,
+            ),
+            const Text(
+              "Login",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 20),
-            TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
-                }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45),
+              child: // The button should be disabled if the username or password is empty
+                  TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Username',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          username = value;
+                        });
+                      }),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45),
+              child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      password = value;
+                    });
+                  }),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45),
+              child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Confirm Password',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      password = value;
+                    });
+                  }),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45),
+              child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Phone Number',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      phone = value;
+                    });
+                  }),
+            ),
             buildButton(true, "Register", () async {
               debugPrint("Username: $username");
               debugPrint("Password: $password");
@@ -55,6 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ApiService().post('/auth/register', {
                   "username": username,
                   "password": password,
+                  "phoneNumber": phone,
                 }).then((data) {
                   debugPrint("Data: $data");
                   if (data['result'] == true) {
